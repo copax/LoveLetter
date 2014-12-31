@@ -8,7 +8,7 @@ public class Player {
 	public Integer seat;
 	Boolean outOfGame;
 	
-	public Player(Integer num, Deck d) {
+	public Player(Integer num, Deck d) throws DeckEmptyException{
 		seat = num;
 		hand = new Hand();
 		tableau = new Tableau();
@@ -25,7 +25,7 @@ public class Player {
 		outOfGame = true;
 	}
 	
-	public void draw(Deck deck) {
+	public void draw(Deck deck) throws DeckEmptyException{
 		hand.addCard(deck.drawCard());
 	}
 	

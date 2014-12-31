@@ -35,7 +35,9 @@ public class Deck {
 		Collections.shuffle(cards);
 	}
 	
-	public Card drawCard() {
+	public Card drawCard() throws DeckEmptyException {
+		if(cards.isEmpty())
+			throw new DeckEmptyException();
 		Card c = cards.get(0);
 		cards.remove(0);
 		return c;
@@ -46,7 +48,7 @@ public class Deck {
 	}
 	
 	public Boolean notEmpty() {
-		return (cards.size() > 0);
+		return (!cards.isEmpty());
 	}
 	
 	public String toString() {
