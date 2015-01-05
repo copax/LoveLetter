@@ -2,17 +2,19 @@ package com.copac.loveletter;
 
 import java.util.ArrayList;
 
+import com.copac.cardgame.exception.DeckEmptyException;
+
 public class Main {
 
 	public static void main(String[] args) {		
-		Deck deck = new Deck();
+		LoveLetterDeck deck = new LoveLetterDeck();
 		deck.shuffle();
 		
-		ArrayList<Player> players = new ArrayList<Player>();
+		ArrayList<LoveLetterPlayer> players = new ArrayList<LoveLetterPlayer>();
 		
 		for(int i=1; i<=4; i++)
 			try {
-				players.add(new Player(i, deck));
+				players.add(new LoveLetterPlayer(i, deck));
 			} catch (DeckEmptyException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -20,7 +22,7 @@ public class Main {
 		
 		
 		System.out.println("Game Start");
-		for(Player player : players) {
+		for(LoveLetterPlayer player : players) {
 			System.out.println(player.toString());
 		}
 		System.out.println("\nDeck State: " + deck.toString());
@@ -30,7 +32,7 @@ public class Main {
 		int count=1;
 		while(deck.notEmpty()) {
 			System.out.println("Round #" + count++);
-			for(Player player : players) {
+			for(LoveLetterPlayer player : players) {
 				if(deck.notEmpty()) {
 					System.out.println("Player # " + player.seat + " taking their turn.");
 					if(!player.outOfGame) {
@@ -48,12 +50,24 @@ public class Main {
 					}
 			}
 			
-			for(Player player1 : players) {
+			Integer activePlayerCount = 0;
+			for(LoveLetterPlayer player1 : players) {
 				System.out.println(player1.toString());
+				if(!player1.outOfGame) {
+					activePlayerCount++;
+				}
+				player1.setHandmaid(false);
 			}
-			System.out.println("\nDeck State: " + deck.toString());
+			System.out.println("\nDeck State: \n" + deck.toString());
 			System.out.println("---------------------------\n");
+			if(activePlayerCount == 1) {
+				break;
+			}
+			
 		}
+	if(!deck.notEmpty()) {
+		System.out.println("DECK EMPTY");
+	}
 		
 		
 	}

@@ -3,6 +3,9 @@ package com.copac.loveletter;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import com.copac.cardgame.Card;
+import com.copac.cardgame.Deck;
+import com.copac.cardgame.exception.DeckEmptyException;
 import com.copac.loveletter.cards.Baron;
 import com.copac.loveletter.cards.Countess;
 import com.copac.loveletter.cards.Guard;
@@ -12,10 +15,12 @@ import com.copac.loveletter.cards.Priest;
 import com.copac.loveletter.cards.Prince;
 import com.copac.loveletter.cards.Princess;
 
-public class Deck {
-	public ArrayList<Card> cards;
+
+public class LoveLetterDeck extends Deck{
 	
-	public Deck() {
+	
+	public LoveLetterDeck() {
+		super();
 		cards = new ArrayList<Card>();
 		for(int i=0; i<5; i++)
 			cards.add(new Guard());
@@ -36,8 +41,9 @@ public class Deck {
 	}
 	
 	public Card drawCard() throws DeckEmptyException {
-		if(cards.isEmpty())
+		if(cards.isEmpty()) {
 			throw new DeckEmptyException();
+		}
 		Card c = cards.get(0);
 		cards.remove(0);
 		return c;
@@ -48,7 +54,7 @@ public class Deck {
 	}
 	
 	public Boolean notEmpty() {
-		return (!cards.isEmpty());
+		return (cards.size() > 0);
 	}
 	
 	public String toString() {
